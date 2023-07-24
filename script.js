@@ -105,6 +105,9 @@ btnSearch.addEventListener('click', (e) => {
     }
     apiCallByZipCode(zipCode.value);
     apiCallByCityName(cityName.value);
-    apiCallByDepartment(departmentNumber.value)
+    apiCallByDepartment(departmentNumber.value);
+    document.getElementById("zipCode").value = '';
+    document.getElementById("cityName").value = '';
+    document.getElementById("departmentNumber").value = '';
 })
 
