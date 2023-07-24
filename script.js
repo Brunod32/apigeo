@@ -72,16 +72,24 @@ let apiCallByDepartment = function (department) {
 
                 for (let i = 0; i < data.length; i++) {
                     let option = new Option(data[i].nom);
-                    option.setAttribute("id", "city" + data[i].nom);
+                    let cityNameLower = data[i].nom.toLowerCase();
+                    option.setAttribute("id", cityNameLower);
+                    option.setAttribute("value", cityNameLower);
                     cityNameSelect.options[cityNameSelect.options.length] = option;
                 }
-                searchResult.appendChild(cityNameSelect)
+                searchResult.appendChild(cityNameSelect);
+                
+                // Retourne les infos de la ville au click de son nom dans le select
+                let citySelector = document.querySelector("select");
+                citySelector?.addEventListener("change", () => {
+                    //console.log(citySelector.value);
 
-            })
-            
+                    // Appel de la fonction retournant les infos de la ville
+                    apiCallByCityName(citySelector.value);
+                })
+            })         
     ).catch(err => console.log('Erreur ' + err));
 }
-
 
 // Ecouteur d'événement sur la soumission du formulaire au click du btn
 let btnSearch = document.getElementById("btnSearch");
