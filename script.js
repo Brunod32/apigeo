@@ -51,19 +51,34 @@ let apiCallByDepartment = function (department) {
     fetch(urlDepartment)
         .then(response => response.json()
             .then((data) => {
+                // Afficher le nombre de communes dans la département
                 let count = document.createElement("h3");
                 count.appendChild(document.createTextNode("Le département compte " + data.length + " communes."))
                 searchResult.prepend(count);
+
+                // for (let i = 0; i < data.length; i++) {
+                //     // Créé une liste avec les data retournées
+                //     let cityNameList = document.createElement("ul");
+                //     cityNameList.setAttribute("class", "cityName");
+                //     searchResult.appendChild(cityNameList);
+                //     let li = document.createElement("li");
+                //     li.appendChild(document.createTextNode(data[i].nom + ", population: " + data[i].population + " habitants"));
+                //     li.setAttribute("id", "city" + data[i].nom);
+                //     cityNameList.appendChild(li);
+                // }
+
+                // créé un select avec les data retournées
+                let cityNameSelect = document.createElement("select");
+
                 for (let i = 0; i < data.length; i++) {
-                    let cityNameList = document.createElement("ul");
-                    cityNameList.setAttribute("class", "cityName");
-                    searchResult.appendChild(cityNameList);
-                    let li = document.createElement("li");
-                    li.appendChild(document.createTextNode(data[i].nom + ", population: " + data[i].population + " habitants"));
-                    li.setAttribute("id", "city" + data[i].nom);
-                    cityNameList.appendChild(li);
+                    let option = new Option(data[i].nom);
+                    option.setAttribute("id", "city" + data[i].nom);
+                    cityNameSelect.options[cityNameSelect.options.length] = option;
                 }
-        })
+                searchResult.appendChild(cityNameSelect)
+
+            })
+            
     ).catch(err => console.log('Erreur ' + err));
 }
 
