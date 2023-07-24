@@ -1,0 +1,37 @@
+body {
+    width: 100vw;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    margin: auto;
+}
+
+fieldset {
+    border-radius: 15px;
+}
+
+#reqform {
+    text-align: center;
+    width: 75%;
+}
+
+#zipCode,
+#departmentNumber {
+    width: 50px;
+}
+
+#btndiv {
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media screen and (min-width: 800px) {
+    #reqform {
+        display: flex;
+        justify-content: space-around;
+    }
+}

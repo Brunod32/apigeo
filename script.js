@@ -9,7 +9,6 @@ let apiCallByZipCode = function (code) {
                 // Je boucle sur toutes les villes correspondantes au zipCode saisi
                 for (let i = 0; i < data.length; i++) {
                     //console.log(data[i].nom);
-
                     // Je créé les li dans la ul
                     let cityNameList = document.createElement("ul");
                     //cityNameList.setAttribute("id", "cityName"+data[i].nom);
@@ -45,11 +44,35 @@ let apiCallByCityName = function (cityName) {
         ).catch(err => console.log('Erreur ' + err));
 }
 
+// appel à l'pai par numéro de département
+let apiCallByDepartment = function (department) {
+    let urlDepartment = `https://geo.api.gouv.fr/departements/${department}/communes`;
+
+    fetch(urlDepartment)
+        .then(response => response.json()
+            .then((data) => {
+                let count = document.createElement("h3");
+                count.appendChild(document.createTextNode("Le département compte " + data.length + " communes."))
+                searchResult.prepend(count);
+                for (let i = 0; i < data.length; i++) {
+                    let cityNameList = document.createElement("ul");
+                    cityNameList.setAttribute("class", "cityName");
+                    searchResult.appendChild(cityNameList);
+                    let li = document.createElement("li");
+                    li.appendChild(document.createTextNode(data[i].nom + ", population: " + data[i].population + " habitants"));
+                    li.setAttribute("id", "city" + data[i].nom);
+                    cityNameList.appendChild(li);
+                }
+        })
+    ).catch(err => console.log('Erreur ' + err));
+}
+
 
 // Ecouteur d'événement sur la soumission du formulaire au click du btn
 let btnSearch = document.getElementById("btnSearch");
 let zipCode = document.getElementById("zipCode");
 let cityName = document.getElementById("cityName");
+let departmentNumber = document.getElementById("departmentNumber");
 
 btnSearch.addEventListener('click', (e) => {
     e.preventDefault();
@@ -59,5 +82,6 @@ btnSearch.addEventListener('click', (e) => {
     }
     apiCallByZipCode(zipCode.value);
     apiCallByCityName(cityName.value);
+    apiCallByDepartment(departmentNumber.value)
 })
 
